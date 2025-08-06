@@ -59,6 +59,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.signUp = signUp;
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
+    console.log(email, password);
     if (!password || !email) {
         res.status(400).json({
             msg: "enter all details"
@@ -98,6 +99,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.signIn = signIn;
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(req.body);
         res.status(200).json({
             msg: "logged out successfully"
         });
