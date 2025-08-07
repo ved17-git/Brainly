@@ -111,7 +111,9 @@ const deleteContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const content = yield db.content.delete({
             where: {
-                id: id
+                id: id,
+                //@ts-ignore
+                userId: req.userId
             }
         });
         if (!content) {

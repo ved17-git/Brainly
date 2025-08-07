@@ -30,6 +30,8 @@ user User @relation(fields: [userId], references: [id])
 
 }
 
+
+
 model Links{
 
 id Int @default(autoincrement()) @id
