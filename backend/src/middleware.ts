@@ -21,9 +21,7 @@ const decoded=jwt.verify(token, "secret")
 
 
 if (typeof decoded === 'object' && decoded !== null && 'id' in decoded) {
-      req.body = {
-        id: (decoded as JwtPayload).id
-      }
+(req as any).userId = (decoded as JwtPayload).id;
  next()
 }
 

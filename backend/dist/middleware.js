@@ -17,9 +17,7 @@ const middleware = (req, res, next) => {
     try {
         const decoded = jsonwebtoken_1.default.verify(token, "secret");
         if (typeof decoded === 'object' && decoded !== null && 'id' in decoded) {
-            req.body = {
-                id: decoded.id
-            };
+            req.userId = decoded.id;
             next();
         }
     }
