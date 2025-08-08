@@ -15,12 +15,11 @@ export default async function DashboardAllPage() {
   })
 
   const data=await res.json()
-  console.log(data);
   
   return (
     <>
-      <div className="mt-3">
-        <DashboardGrid section="all" content={data.content} />
+     <div className="mt-3">
+        <DashboardGrid content={data.content} />
       </div>
     </>
   );

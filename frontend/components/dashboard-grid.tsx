@@ -1,84 +1,119 @@
 "use client"
 
+import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Trash2 } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog"
+import { deleteContent } from "@/app/dashboard/Content-Actions/action"
+import { useActionState } from "react"
 
-type Section = "all" | "twitter" | "videos"  | "tags"
-
-const ITEMS = [
-  {
-    id: 1,
-    section: "documents" as const,
-    title: "Project Ideas",
-    subtitle: "Future Projects",
-    bullets: [
-      "Build a personal knowledge base",
-      "Create a habit tracker",
-      "Design a minimalist todo app",
-    ],
-    tags: ["productivity", "ideas"],
-    added: "10/03/2024",
-  },
-  {
-    id: 2,
-    section: "videos" as const,
-    title: "How to Build a Second Brain",
-    image: "/video-thumbnail-gray-placeholder.png",
-    tags: ["productivity", "learning"],
-    added: "09/03/2024",
-  },
-  {
-    id: 3,
-    section: "tweets" as const,
-    title: "Productivity Tip",
-    excerpt:
-      "The best way to learn is to build in public. Share your progress, get feedback, and help others along the way.",
-    tags: ["productivity", "learning"],
-    added: "08/03/2024",
-  },
-]
-
-function filter(section: Section) {
-  if (section === "all") return ITEMS
-  return ITEMS.filter((i) => i.section === section)
-}
 
 interface contentType {
-id:number,
-link:string,
-title:string
+  id: number
+  link: string
+  title: string
+  type?: string
 }
 
-export default function DashboardGrid({ section, content}: { section: Section, content:contentType[] }) {
-  const data = filter(section)
+export default function DashboardGrid({
+  content,
+}: {
+  content: contentType[]
+}) {
+  const [deleteId, setDeleteId] = useState<number | null>(null)
 
-  console.log(content);
-  
+  const [data,deleteAction,isLoading]=useActionState(deleteContent,undefined)
+
+  function convertYouTubeUrl(url: string) {
+  try {
+    const videoId = new URL(url).searchParams.get("v");
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+  } catch {
+    return url; // if it's already an embed link or invalid
+  }
+}
+
+
 
   return (
     <div className="px-4 pb-8">
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {content.map((card) => (
-          <Card key={card.id} className="border">
-            <CardHeader className="pb-3">
-              <CardDescription className="flex items-center gap-2">
-                {card.title}
-                <div className="ml-auto flex items-center gap-3 text-muted-foreground">
-                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-muted-foreground/50" />
-                  <span className="sr-only">Card actions placeholder</span>
-                </div>
-              </CardDescription>
+        {content?.map((card) => (
+          <Card key={card.id} className="border flex flex-col">
+            <CardHeader className="pb-3 flex flex-row items-center justify-between">
+              <div>
+                <CardTitle className="text-lg font-semibold">{card.title}</CardTitle>
+                <CardDescription>Added content</CardDescription>
+              </div>
+              <div className="flex gap-2">
+
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-red-100 hover:text-red-600"
+                  onClick={() => setDeleteId(card.id)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="">
-                <iframe width="100%" height="315" src={card.link} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-              </div>
+              <iframe
+                width="100%"
+                height="315"
+                src={convertYouTubeUrl(card.link)}
+                title={card.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="rounded-2xl"
+              ></iframe>
+
+
             </CardContent>
           </Card>
         ))}
       </div>
 
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Are you sure?</DialogTitle>
+          </DialogHeader>
+          <p>This action cannot be undone. The content will be permanently removed.</p>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteId(null)}>
+              Cancel
+            </Button>
+            <form action={deleteAction}>
+            <Button variant="destructive">
+              {isLoading? "Loading..." : "Delete"}
+            </Button>
+                <input
+                id="id"
+                name="id"
+                hidden
+                required
+                value={deleteId !== null ? String(deleteId) : ""}
+              />
+            </form>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
 
     </div>
   )
 }
+
+
+

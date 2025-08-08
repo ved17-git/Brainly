@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Twitter, Youtube, FileText, Link2, Tag, Brain } from 'lucide-react'
+import { Twitter, Youtube, Tag, Brain } from 'lucide-react'
 
 import {
   Sidebar,
@@ -111,7 +111,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
                  <form action={formAction}>
                   <DropdownMenuItem asChild>
                     <button type="submit" className="w-full text-left">
-                      Log out
+                     {isLoading? "Loading...":"Log out"}
                     </button>
                   </DropdownMenuItem>
                 </form>

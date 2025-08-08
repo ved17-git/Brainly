@@ -86,45 +86,6 @@ export const allContent=async(req:Request,res:Response)=>{
 
 
 
-export const updateContent=async(req:Request,res:Response)=>{
-
-    const {id,title, link}=req.body
-
-    try {
-
-    const content=await db.content.update({
-        where:{
-            id:id
-        },
-        data:{
-            title,
-            link
-        }
-    })
-
-    if(!content){
-        res.status(400).json({
-            msg:"No content found"
-        })
-        return
-    }
-
-    res.status(200).json({
-            msg:"Content updated",
-            content
-        })
-    return
-
-        
-    } catch (e) {
-    res.status(400).json({
-            msg:"api error"
-        })
-    return
-        
-    }
-}
-
 
 export const deleteContent=async(req:Request,res:Response)=>{
    
@@ -136,7 +97,6 @@ export const deleteContent=async(req:Request,res:Response)=>{
         where:{
             id:id,
             //@ts-ignore
-            userId:req.userId
         }
     })
 
@@ -154,6 +114,7 @@ export const deleteContent=async(req:Request,res:Response)=>{
 
         
     } catch (e) {
+        console.log(e);
     res.status(400).json({
             msg:"api error"
         })

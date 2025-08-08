@@ -113,7 +113,6 @@ const deleteContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             where: {
                 id: id,
                 //@ts-ignore
-                userId: req.userId
             }
         });
         if (!content) {
@@ -128,6 +127,7 @@ const deleteContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return;
     }
     catch (e) {
+        console.log(e);
         res.status(400).json({
             msg: "api error"
         });
