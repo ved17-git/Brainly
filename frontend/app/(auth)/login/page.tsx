@@ -63,9 +63,8 @@ function Login() {
             <Button type="submit" className="w-full">
               {isLoading ? 'Loading...' : 'Sign In'}
             </Button>
+            {data ? data : null}
           </div>
-          
-          
           
            <div className="mt-6 text-center text-sm">
             {"Don't have an account? "}

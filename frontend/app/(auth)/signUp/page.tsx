@@ -60,6 +60,8 @@ function SignUp() {
             <Button type="submit" className="w-full">
                {isLoading ? "Loading..." : "Create Account"}
             </Button>
+            {data? data : null}
+
           </div>
           
           
