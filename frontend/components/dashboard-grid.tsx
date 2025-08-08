@@ -43,13 +43,22 @@ function filter(section: Section) {
   return ITEMS.filter((i) => i.section === section)
 }
 
-export default function DashboardGrid({ section }: { section: Section }) {
+interface contentType {
+id:number,
+link:string,
+title:string
+}
+
+export default function DashboardGrid({ section, content}: { section: Section, content:contentType[] }) {
   const data = filter(section)
+
+  console.log(content);
+  
 
   return (
     <div className="px-4 pb-8">
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {data.map((card) => (
+        {content.map((card) => (
           <Card key={card.id} className="border">
             <CardHeader className="pb-3">
               <CardDescription className="flex items-center gap-2">
@@ -59,29 +68,11 @@ export default function DashboardGrid({ section }: { section: Section }) {
                   <span className="sr-only">Card actions placeholder</span>
                 </div>
               </CardDescription>
-              {card.subtitle ? (
-                <CardTitle className="text-2xl">{card.subtitle}</CardTitle>
-              ) : null}
             </CardHeader>
             <CardContent className="space-y-3">
-              {"bullets" in card ? (
-                <ul className="list-disc pl-5 space-y-1 text-sm">
-                  {card.bullets!.map((b) => (
-                    <li key={b}>{b}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-sm leading-relaxed text-muted-foreground">{card.excerpt}</p>
-              )}
-
-              <div className="flex flex-wrap gap-2 pt-2">
-                {card.tags.map((t) => (
-                  <Badge key={t} variant="secondary" className="rounded-full">
-                    #{t}
-                  </Badge>
-                ))}
+              <div className="">
+                <iframe width="100%" height="315" src={card.link} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
               </div>
-              <div className="text-xs text-muted-foreground">Added on {card.added}</div>
             </CardContent>
           </Card>
         ))}

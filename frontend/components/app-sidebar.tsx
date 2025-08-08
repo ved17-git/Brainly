@@ -24,6 +24,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { logout } from "@/app/(auth)/logout/actions"
+import { useActionState } from "react"
+
 
 const nav = [
   { title: "Twitter", href: "/dashboard/twitter", icon: Twitter },
@@ -31,8 +34,13 @@ const nav = [
   { title: "Tags", href: "/dashboard/tags", icon: Tag },
 ]
 
+
+
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
+
+   const [data,formAction, isLoading] = useActionState(logout, undefined)
+
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -100,7 +108,14 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
                 <DropdownMenuItem>Profile</DropdownMenuItem>
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Log out</DropdownMenuItem>
+                 <form action={formAction}>
+                  <DropdownMenuItem asChild>
+                    <button type="submit" className="w-full text-left">
+                      Log out
+                    </button>
+                  </DropdownMenuItem>
+                </form>
+                
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>

@@ -1,9 +1,27 @@
-import DashboardGrid from "@/components/dashboard-grid"
+import DashboardGrid from "@/components/dashboard-grid";
+import { cookies } from "next/headers";
 
-export default function DashboardAllPage() {
-  return (<> 
-  <div className="mt-3"> 
-  <DashboardGrid section="all" />
-  </div>
-  </>)
+export default async function DashboardAllPage() {
+
+  const cookieStore=await cookies()
+  const token=cookieStore.get("token")?.value
+   
+  const res=await fetch("http://localhost:8000/allContent",{
+    method:"GET",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":`Bearer ${token}`
+    },
+  })
+
+  const data=await res.json()
+  console.log(data);
+  
+  return (
+    <>
+      <div className="mt-3">
+        <DashboardGrid section="all" content={data.content} />
+      </div>
+    </>
+  );
 }
