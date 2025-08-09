@@ -6,4 +6,4 @@ import { middleware } from '../middleware'
 export const linkRouter=express.Router()
 
 linkRouter.post('/share', middleware, share)
-linkRouter.get('/:shareLink', shareLink)
+linkRouter.get('/share/:shareLink', shareLink)

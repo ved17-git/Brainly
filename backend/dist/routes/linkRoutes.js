@@ -10,4 +10,4 @@ const linksController_2 = require("../controller/linksController");
 const middleware_1 = require("../middleware");
 exports.linkRouter = express_1.default.Router();
 exports.linkRouter.post('/share', middleware_1.middleware, linksController_1.share);
-exports.linkRouter.get('/:shareLink', linksController_2.shareLink);
+exports.linkRouter.get('/share/:shareLink', linksController_2.shareLink);

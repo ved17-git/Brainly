@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { addContent } from "@/app/dashboard/Content-Actions/action"
 import { useActionState } from "react"
+import { shareLink } from "@/app/dashboard/Content-Actions/action"
 
 
 
@@ -22,6 +23,7 @@ export function HeaderActions() {
   const [open, setOpen] = useState(false)
    
   const [data, formAction, isLoading]=useActionState(addContent,undefined)
+  const [shareData, shareAction, isPending]=useActionState(shareLink,undefined)
 
   
 
@@ -70,6 +72,13 @@ export function HeaderActions() {
           </form>
         </DialogContent>
       </Dialog>
+
+      
+    <form action={shareAction}>
+     <Button>
+     {isPending ? "Loading..." : "Share Link"}
+     </Button>
+    </form>
     </div>
   )
 }

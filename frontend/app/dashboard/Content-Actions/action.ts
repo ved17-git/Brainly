@@ -57,3 +57,36 @@ console.log(typeof id);
     
     revalidateTag('/dashboard')
 }
+
+
+export const shareLink=async(previousState:unknown)=>{
+
+
+    const share=true;
+    const token=await getToken()
+
+    const res=await fetch("http://localhost:8000/share",{
+    method:"POST",
+    headers:{
+    "Content-Type":"application/json",
+    "Authorization":`Bearer ${token}`
+    },
+    body:JSON.stringify({share})
+    })
+
+    console.log(res);
+    
+    const data=await res.json()
+    console.log(data);
+    
+    const sharedLink="http://localhost:3000/share/"+data.url
+    console.log(sharedLink);
+    
+    if(!res.ok){
+        return data.msg
+    }
+    
+    revalidateTag('/dashboard')
+
+
+}
