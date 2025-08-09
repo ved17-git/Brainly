@@ -3,10 +3,11 @@ import cors from 'cors'
 import { userRouter } from './routes/userRoutes'
 import { contentRouter } from './routes/contentRoutes'
 import { linkRouter } from './routes/linkRoutes'
+require('dotenv').config()
 
 const app=express()
 
-const port=8000
+const port=process.env.PORT
 
 app.use(cors())
 app.use(express.json())

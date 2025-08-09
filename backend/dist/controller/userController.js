@@ -61,7 +61,6 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.signUp = signUp;
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-    console.log(email, password);
     if (!password || !email) {
         res.status(400).json({
             msg: "enter all details"
@@ -83,7 +82,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const token = jsonwebtoken_1.default.sign({
             id: user.id,
             username: user.username,
-        }, "secret");
+        }, process.env.JWT_SECRET);
         const check = yield bcrypt_1.default.compare(password, user.password);
         if (check) {
             res.status(200).json({

@@ -1,4 +1,5 @@
 "use server"
+import { BASE_URL } from "@/app/utils/config"
 import { getToken } from "@/app/utils/getToken"
 import { revalidateTag } from "next/cache"
 export const addContent=async( previousState:unknown, formData:FormData)=>{
@@ -11,7 +12,7 @@ export const addContent=async( previousState:unknown, formData:FormData)=>{
     
     
 
-    const res=await fetch("http://localhost:8000/createContent",{
+    const res=await fetch(`${BASE_URL}/createContent`,{
         method:"POST",
         headers:{
             "Content-Type":"application/json",
@@ -36,7 +37,7 @@ const token=await getToken()
 
 
 
-    const res=await fetch("http://localhost:8000/deleteContent",{
+    const res=await fetch(`${BASE_URL}/deleteContent`,{
         method:"DELETE",
         headers:{
             "Content-Type":"application/json",
@@ -61,7 +62,7 @@ export const shareLink=async()=>{
     const share=true;
     const token=await getToken()
 
-    const res=await fetch("http://localhost:8000/share",{
+    const res=await fetch(`${BASE_URL}}/share`,{
     method:"POST",
     headers:{
     "Content-Type":"application/json",

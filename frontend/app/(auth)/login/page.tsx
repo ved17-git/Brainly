@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { loginForm } from "./action";
 import { useActionState } from "react";
+import Link from "next/link";
 
 function Login() {
 
@@ -68,8 +69,8 @@ function Login() {
           
            <div className="mt-6 text-center text-sm">
             {"Don't have an account? "}
-            <Button variant="link" className="px-0 text-sm">
-              Sign up here
+            <Button variant="link" className="px-0 text-sm" asChild>
+              <Link href='/signUp' >  Sign up here</Link>
             </Button>
           </div>
         </CardContent>

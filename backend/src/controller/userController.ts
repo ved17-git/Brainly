@@ -93,7 +93,7 @@ export const signIn=async(req:Request,res:Response)=>{
         const token= jwt.sign({
             id:user.id,
             username:user.username,
-        }, "secret")
+        }, process.env.JWT_SECRET as string)
 
         const check=await bcrypt.compare(password, user.password)
 

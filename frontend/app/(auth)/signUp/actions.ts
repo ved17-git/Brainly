@@ -1,4 +1,5 @@
 "use server"
+import { BASE_URL } from "@/app/utils/config"
 import { redirect } from "next/navigation"
 export const signUpForm=async(previousState:unknown, formData:FormData)=>{
 
@@ -8,7 +9,7 @@ export const signUpForm=async(previousState:unknown, formData:FormData)=>{
 
 
 
-        const res= await fetch('http://localhost:8000/signUp', {
+        const res= await fetch(`${BASE_URL}/signUp`, {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"

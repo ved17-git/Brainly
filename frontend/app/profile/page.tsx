@@ -6,11 +6,12 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getToken } from "../utils/getToken"
 import { logout } from "../(auth)/logout/actions"
+import { BASE_URL } from "../utils/config"
 
 export default async function Profile() {
   const token=await getToken()
      
-  const res=await fetch("http://localhost:8000/currentUser",{
+  const res=await fetch(`${BASE_URL}/currentUser`,{
     method:"GET",
     headers:{
         "Content-Type":"application/json",

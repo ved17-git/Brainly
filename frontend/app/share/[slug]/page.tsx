@@ -1,5 +1,6 @@
 import DashboardGrid from "@/components/dashboard-grid";
 import React from "react";
+import { BASE_URL } from "@/app/utils/config";
 
 type paramsType={
     params:{
@@ -11,7 +12,7 @@ async function ShareLink({params}:paramsType) {
  
     const id=params.slug
     
-    const res=await fetch(`http://localhost:8000/share/${id}`,{
+    const res=await fetch(`${BASE_URL}/share/${id}`,{
         method:"GET",
         headers:{
             "Content-Type":"application/json"
