@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { cookies } from "next/headers";
-const publicPaths=['/signUp', '/login', '/']
+const publicPaths=['/signUp', '/login', '/', '/share/[slug]']
 
 export async function middleware(req:NextRequest){
 
@@ -8,7 +8,9 @@ export async function middleware(req:NextRequest){
     const token=cookieStore.get("token")?.value
     const pathName=req.nextUrl.pathname
 
-    if(!token && !publicPaths.includes(pathName)){
+      const isPublic =publicPaths.includes(pathName) || pathName.startsWith("/share/");
+
+    if(!token && !isPublic){
         return NextResponse.redirect(new URL('/', req.url))
     }
 

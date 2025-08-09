@@ -1,11 +1,15 @@
 import e, { Request, Response } from "express" 
 import { PrismaClient } from "@prisma/client"
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
+import z from "zod"
 
 const db= new PrismaClient()
 
 
 export const signUp=async(req:Request,res:Response)=>{
+      
+
 
     const {username,email, password }=req.body
 
@@ -31,11 +35,13 @@ export const signUp=async(req:Request,res:Response)=>{
         return
         }
 
+        const hash=await bcrypt.hash(password,10)
+
         const user=await db.user.create({
             data:{
                 username:username,
                 email:email,
-                password:password
+                password:hash
             }
         })
 
@@ -60,7 +66,6 @@ export const signIn=async(req:Request,res:Response)=>{
 
     const {email, password }=req.body
 
-    console.log(email, password);
     
 
     if(!password || !email){
@@ -90,12 +95,20 @@ export const signIn=async(req:Request,res:Response)=>{
             username:user.username,
         }, "secret")
 
-        if(user.password===password){
+        const check=await bcrypt.compare(password, user.password)
+
+        if(check){
         res.status(200).json({
             msg:"logged In successfully",
             token
         })
         return
+        }else{
+            res.status(400).json({
+            msg:"incorrect password",
+        })
+        return
+
         }
 
     } catch (e) {
@@ -107,11 +120,49 @@ export const signIn=async(req:Request,res:Response)=>{
 
 
 
+export const currentUser=async(req:Request,res:Response)=>{
+
+    try {
+       
+        const user = await db.user.findFirst({
+            where:{
+                //@ts-ignore
+                id:req.userId
+            }
+        })
+
+        if(!user){
+        res.status(400).json({
+            msg:"user not found"
+        })
+        return
+        }
+
+        res.status(200).json({
+            msg:"user",
+            user:{
+                id:user.id,
+                username:user.username,
+                email:user.email
+            }
+        })
+        return
+        
+
+    } catch (e) {
+        res.status(400).json({
+            msg:"api error"
+        })
+    }
+
+}
+
+
+
 
 export const logout=async(req:Request,res:Response)=>{
 
     try {
-       console.log(req.body);
        
         res.status(200).json({
             msg:"logged out successfully"

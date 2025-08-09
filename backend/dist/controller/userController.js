@@ -12,9 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logout = exports.signIn = exports.signUp = void 0;
+exports.logout = exports.currentUser = exports.signIn = exports.signUp = void 0;
 const client_1 = require("@prisma/client");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const db = new client_1.PrismaClient();
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = req.body;
@@ -36,11 +37,12 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
             return;
         }
+        const hash = yield bcrypt_1.default.hash(password, 10);
         const user = yield db.user.create({
             data: {
                 username: username,
                 email: email,
-                password: password
+                password: hash
             }
         });
         if (user) {
@@ -82,10 +84,17 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             id: user.id,
             username: user.username,
         }, "secret");
-        if (user.password === password) {
+        const check = yield bcrypt_1.default.compare(password, user.password);
+        if (check) {
             res.status(200).json({
                 msg: "logged In successfully",
                 token
+            });
+            return;
+        }
+        else {
+            res.status(400).json({
+                msg: "incorrect password",
             });
             return;
         }
@@ -97,9 +106,39 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.signIn = signIn;
+const currentUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield db.user.findFirst({
+            where: {
+                //@ts-ignore
+                id: req.userId
+            }
+        });
+        if (!user) {
+            res.status(400).json({
+                msg: "user not found"
+            });
+            return;
+        }
+        res.status(200).json({
+            msg: "user",
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email
+            }
+        });
+        return;
+    }
+    catch (e) {
+        res.status(400).json({
+            msg: "api error"
+        });
+    }
+});
+exports.currentUser = currentUser;
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(req.body);
         res.status(200).json({
             msg: "logged out successfully"
         });

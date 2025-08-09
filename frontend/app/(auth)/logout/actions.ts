@@ -3,7 +3,7 @@
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
-export const logout = async () => {
+export const logout = async ():Promise<void>=> {
   const cookieStore = await cookies()
   const token = cookieStore.get("token")?.value
 
@@ -16,10 +16,9 @@ export const logout = async () => {
   })
 
   const data = await res.json()
-  console.log(data)
 
   if (!res.ok) {
-    return { msg: data.msg || "Logout failed" }
+    return
   }
 
   cookieStore.delete("token")

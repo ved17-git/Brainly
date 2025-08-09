@@ -8,7 +8,6 @@ export const addContent=async( previousState:unknown, formData:FormData)=>{
     const type=formData.get("type")
     const token=await getToken()
 
-    console.log(type);
     
     
 
@@ -21,7 +20,6 @@ export const addContent=async( previousState:unknown, formData:FormData)=>{
         body:JSON.stringify({title,link, type})
     })
     const data=await res.json()
-    console.log(data);
     
 
     if(!res.ok){
@@ -36,7 +34,6 @@ export const deleteContent=async(previousState:unknown, formData:FormData)=>{
 const id=formData.get("id") ?  Number(formData.get("id")) : null
 const token=await getToken()
 
-console.log(typeof id);
 
 
     const res=await fetch("http://localhost:8000/deleteContent",{
@@ -48,7 +45,6 @@ console.log(typeof id);
         body:JSON.stringify({id})
     })
     const data=await res.json()
-    console.log(data);
     
 
     if(!res.ok){
@@ -59,7 +55,7 @@ console.log(typeof id);
 }
 
 
-export const shareLink=async(previousState:unknown)=>{
+export const shareLink=async()=>{
 
 
     const share=true;
@@ -74,10 +70,8 @@ export const shareLink=async(previousState:unknown)=>{
     body:JSON.stringify({share})
     })
 
-    console.log(res);
     
     const data=await res.json()
-    console.log(data);
     
     const sharedLink="http://localhost:3000/share/"+data.url
     console.log(sharedLink);

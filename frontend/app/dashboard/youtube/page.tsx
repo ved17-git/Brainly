@@ -22,8 +22,9 @@ export default async function DashboardYouTubePage() {
 
   return (
     <>
+    <div className="mt-6"> 
       <DashboardGrid content={data.content} />
-
+    </div>
     </>
   );
 }

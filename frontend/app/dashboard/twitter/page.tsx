@@ -13,21 +13,21 @@ export default async function DashboardTwitterPage() {
     },
   })
 
-  console.log(res);
   
   if(!res.ok){
     return "error fetching"
   }
   
   const data=await res.json()
-  console.log(data);
   
 
 
 
   return (
     <>
+    <div className="mt-6"> 
       <DashboardGrid content={data.content} />
+      </div>
     </>
   );
 }

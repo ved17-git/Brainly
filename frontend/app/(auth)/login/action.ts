@@ -6,7 +6,6 @@ export const loginForm=async(previousState:unknown, formData:FormData)=>{
  const email=formData.get("email")
  const password=formData.get("password")
 
- console.log(email,password);
 
          const res= await fetch('http://localhost:8000/signIn', {
              method:"POST",

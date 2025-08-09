@@ -18,7 +18,7 @@ export default async function DashboardAllPage() {
   
   return (
     <>
-     <div className="mt-3">
+     <div className="mt-6">
         <DashboardGrid content={data.content} />
       </div>
     </>

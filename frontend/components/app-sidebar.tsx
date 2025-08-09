@@ -49,7 +49,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
           <div className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <Brain className="h-4 w-4" />
           </div>
-          <span className="font-semibold group-data-[collapsible=icon]:hidden">Second Brain</span>
+          <span className="font-semibold group-data-[collapsible=icon]:hidden">LinkShare </span>
         </div>
         <SidebarGroup>
           <SidebarGroupContent>
@@ -105,8 +105,9 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
               <DropdownMenuContent align="end" className="w-56 rounded-lg">
                 <DropdownMenuLabel className="font-medium">My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Settings</DropdownMenuItem>
+           <DropdownMenuItem asChild>
+            <Link href="/profile">Profile</Link>
+          </DropdownMenuItem>
                 <DropdownMenuSeparator />
                  <form action={formAction}>
                   <DropdownMenuItem asChild>
