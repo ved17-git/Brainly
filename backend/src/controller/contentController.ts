@@ -4,11 +4,19 @@
     const db=new PrismaClient()
     export const createContent=async(req:Request,res:Response)=>{
 
-    const {title, link} =req.body
+    const {title, link, type} =req.body
     //@ts-ignore
     const id=req.userId
 
-    console.log(title, link, id);
+    console.log(title, link, id, type);
+
+    if(!title||!link || !type){
+    res.status(400).json({
+            msg:"enter all details"
+        })
+    return
+
+    }
     
 
     try {
@@ -17,7 +25,8 @@
         data:{
             title:title,
             link:link,
-            userId:id
+            userId:id,
+            type:type
         },
     })
 
@@ -123,6 +132,88 @@ export const deleteContent=async(req:Request,res:Response)=>{
     }
 
 }
+
+
+
+
+export const youtubeContent=async(req:Request,res:Response)=>{
+   
+    
+    try {
+
+    const content=await db.content.findMany({
+        where:{
+            type:"youtube",
+            //@ts-ignore
+            userId:req.userId
+        }
+    })
+
+    if(!content){
+        res.status(400).json({
+            msg:"No content found"
+        })
+        return
+    }
+
+    res.status(200).json({
+        msg:"youtube content",
+        content
+    })
+
+
+        
+    } catch (e) {
+        console.log(e);
+    res.status(400).json({
+            msg:"api error"
+        })
+    return
+        
+    }
+}
+
+
+
+export const twitterContentContent=async(req:Request,res:Response)=>{
+   
+    const {type}=req.body
+    
+    try {
+
+    const content=await db.content.findMany({
+        where:{
+            type:type,
+            //@ts-ignore
+            userId:req.userId
+        }
+    })
+
+    if(!content){
+        res.status(400).json({
+            msg:"No content found"
+        })
+        return
+    }
+
+    res.status(200).json({
+        msg:"twitter content",
+        content
+    })
+
+
+        
+    } catch (e) {
+        console.log(e);
+    res.status(400).json({
+            msg:"api error"
+        })
+    return
+        
+    }
+
+}
+
 
 
 

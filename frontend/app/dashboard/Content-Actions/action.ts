@@ -5,9 +5,10 @@ export const addContent=async( previousState:unknown, formData:FormData)=>{
 
     const title=formData.get("title")
     const link=formData.get("link")
+    const type=formData.get("type")
     const token=await getToken()
 
-    console.log(title,link,token);
+    console.log(type);
     
     
 
@@ -17,7 +18,7 @@ export const addContent=async( previousState:unknown, formData:FormData)=>{
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         },
-        body:JSON.stringify({title,link})
+        body:JSON.stringify({title,link, type})
     })
     const data=await res.json()
     console.log(data);

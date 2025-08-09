@@ -53,8 +53,8 @@ export function HeaderActions() {
                   <SelectValue placeholder="Select a type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="tweet">Tweet</SelectItem>
-                  <SelectItem value="youtube">Video</SelectItem>
+                  <SelectItem value="twitter">Twitter</SelectItem>
+                  <SelectItem value="youtube">Youtube</SelectItem>
                 </SelectContent>
               </Select>
             </div>
