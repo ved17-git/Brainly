@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import Script from "next/script";
 
 
 const geistSans = Geist({
@@ -29,6 +30,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressContentEditableWarning suppressHydrationWarning>
+
+
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -36,6 +39,12 @@ export default function RootLayout({
             disableTransitionOnChange>
             {children}
           </ThemeProvider>
+
+          <Script
+        src="https://platform.twitter.com/widgets.js"
+          strategy="lazyOnload"
+         charSet="utf-8"
+           />
       </body>
     </html>
   );

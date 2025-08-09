@@ -175,15 +175,14 @@ export const youtubeContent=async(req:Request,res:Response)=>{
 
 
 
-export const twitterContentContent=async(req:Request,res:Response)=>{
+export const twitterContent=async(req:Request,res:Response)=>{
    
-    const {type}=req.body
     
     try {
 
     const content=await db.content.findMany({
         where:{
-            type:type,
+            type:"twitter",
             //@ts-ignore
             userId:req.userId
         }

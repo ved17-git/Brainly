@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.twitterContentContent = exports.youtubeContent = exports.deleteContent = exports.allContent = exports.createContent = void 0;
+exports.twitterContent = exports.youtubeContent = exports.deleteContent = exports.allContent = exports.createContent = void 0;
 const client_1 = require("@prisma/client");
 const db = new client_1.PrismaClient();
 const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -139,12 +139,11 @@ const youtubeContent = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.youtubeContent = youtubeContent;
-const twitterContentContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { type } = req.body;
+const twitterContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const content = yield db.content.findMany({
             where: {
-                type: type,
+                type: "twitter",
                 //@ts-ignore
                 userId: req.userId
             }
@@ -168,4 +167,4 @@ const twitterContentContent = (req, res) => __awaiter(void 0, void 0, void 0, fu
         return;
     }
 });
-exports.twitterContentContent = twitterContentContent;
+exports.twitterContent = twitterContent;

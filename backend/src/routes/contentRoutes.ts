@@ -1,5 +1,5 @@
 import express from 'express'
-import { allContent, twitterContentContent, youtubeContent } from '../controller/contentController'
+import { allContent, twitterContent, youtubeContent } from '../controller/contentController'
 import { createContent } from '../controller/contentController'
 import { deleteContent } from '../controller/contentController'
 import { middleware } from '../middleware'
@@ -12,5 +12,5 @@ contentRouter.delete('/deleteContent', middleware, deleteContent)
 
 contentRouter.get('/youtubeContent',middleware, youtubeContent)
 
-contentRouter.get('/twitterContent',middleware, twitterContentContent)
+contentRouter.get('/twitterContent',middleware, twitterContent)
 

@@ -1,6 +1,5 @@
 "use client"
-
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Trash2 } from "lucide-react"
@@ -13,13 +12,14 @@ import {
 } from "@/components/ui/dialog"
 import { deleteContent } from "@/app/dashboard/Content-Actions/action"
 import { useActionState } from "react"
+import { Badge } from "./ui/badge";
 
 
 interface contentType {
   id: number
   link: string
   title: string
-  type?: string
+  type: string
 }
 
 export default function DashboardGrid({
@@ -30,6 +30,10 @@ export default function DashboardGrid({
   const [deleteId, setDeleteId] = useState<number | null>(null)
 
   const [data,deleteAction,isLoading]=useActionState(deleteContent,undefined)
+
+  useEffect(()=>{
+
+  },[])
 
   function convertYouTubeUrl(url: string) {
   try {
@@ -45,43 +49,56 @@ export default function DashboardGrid({
   return (
     <div className="px-4 pb-8">
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {content?.map((card) => (
-          <Card key={card.id} className="border flex flex-col">
-            <CardHeader className="pb-3 flex flex-row items-center justify-between">
-              <div>
-                <CardTitle className="text-lg font-semibold">{card.title}</CardTitle>
-                <CardDescription>Added content</CardDescription>
-              </div>
-              <div className="flex gap-2">
+  {content?.map((card) => (
+    <Card key={card.id} className="border flex flex-col overflow-hidden">
+      <CardHeader className="pb-3 flex flex-row items-center justify-between">
+        <div>
+          <CardTitle className="text-lg font-semibold">{card.title}</CardTitle>
+          <CardDescription>Added content</CardDescription>
+        </div>
+        <div className="flex gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hover:bg-red-100 hover:text-red-600"
+            onClick={() => setDeleteId(card.id)}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
+      </CardHeader>
 
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="hover:bg-red-100 hover:text-red-600"
-                  onClick={() => setDeleteId(card.id)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <iframe
-                width="100%"
-                height="315"
-                src={convertYouTubeUrl(card.link)}
-                title={card.title}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                className="rounded-2xl"
-              ></iframe>
+      <CardContent className="space-y-3">
+        {card.type === "youtube" && (
+          <iframe
+            width="100%"
+            height="315"
+            src={convertYouTubeUrl(card.link)}
+            title={card.title}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            className="rounded-2xl shadow-sm border"
+          ></iframe>
+        )}
 
+        {card.type === "twitter" && (
+          <div className="rounded-2xl"> 
+             <blockquote className="twitter-tweet" data-theme="dark">         
+              <a href={card.link.replace('x.com', 'twitter.com')}></a> 
+             </blockquote>
 
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+             <Badge variant="secondary">{card.type.toLocaleUpperCase()}</Badge>
+           </div>
+        )}
+      </CardContent>
+    </Card>
+  ))}
+</div>
+
+{/* Twitter script loader */}
+
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>

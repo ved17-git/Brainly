@@ -1,5 +1,4 @@
 "use client"
-
 import {useState } from "react"
 import { Plus,  } from 'lucide-react'
 import { Button } from "@/components/ui/button"
@@ -32,11 +31,14 @@ export function HeaderActions() {
 
     <div className="flex items-center gap-2">
       <Dialog open={open} onOpenChange={setOpen}>
+
         <DialogTrigger asChild>
+
           <Button>
             <Plus className="" /> Add Content
           </Button>
         </DialogTrigger>
+
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>Add content</DialogTitle>
@@ -48,7 +50,7 @@ export function HeaderActions() {
             </div>
             <div className="grid gap-2">
               <Label>Type</Label>
-              <Select defaultValue="youtube" name="type">
+              <Select  name="type">
                 <SelectTrigger>
                   <SelectValue placeholder="Select a type" />
                 </SelectTrigger>

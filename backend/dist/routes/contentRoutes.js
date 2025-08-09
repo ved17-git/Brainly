@@ -14,4 +14,4 @@ exports.contentRouter.post('/createContent', middleware_1.middleware, contentCon
 exports.contentRouter.get('/allContent', middleware_1.middleware, contentController_1.allContent);
 exports.contentRouter.delete('/deleteContent', middleware_1.middleware, contentController_3.deleteContent);
 exports.contentRouter.get('/youtubeContent', middleware_1.middleware, contentController_1.youtubeContent);
-exports.contentRouter.get('/twitterContent', middleware_1.middleware, contentController_1.twitterContentContent);
+exports.contentRouter.get('/twitterContent', middleware_1.middleware, contentController_1.twitterContent);
