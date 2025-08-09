@@ -16,8 +16,5 @@ app.use('/', userRouter)
 app.use('/', contentRouter)
 app.use('/', linkRouter)
 
-
-app.listen(port, ()=>{
-    console.log(`listening on ${port}`);
-})
+export default app;
 
