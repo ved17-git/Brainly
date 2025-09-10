@@ -3,7 +3,6 @@ import cors from 'cors'
 import { userRouter } from './routes/userRoutes'
 import { contentRouter } from './routes/contentRoutes'
 import { linkRouter } from './routes/linkRoutes'
-import serverless from 'serverless-http';
 require('dotenv').config()
 
 const app=express()
@@ -17,4 +16,8 @@ app.use('/', userRouter)
 app.use('/', contentRouter)
 app.use('/', linkRouter)
 
-export const handler = serverless(app); 
+
+app.listen(port, ()=>{
+    console.log(`listening on ${port}`);
+})
+

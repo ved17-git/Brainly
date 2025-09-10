@@ -16,8 +16,6 @@ export const logout = async ():Promise<void>=> {
     },
   })
 
-  const data = await res.json()
-
   if (!res.ok) {
     return
   }
