@@ -27,8 +27,8 @@ async function ShareLink({params}:paramsType) {
 
   return (
     <>  
-    <div className="px-[12vh] py-6"> 
-       <h1 className="pb-6">Username :{data.data.username}</h1>
+    <div className=""> 
+       <h1 className="pb-6 text-center font-medium mt-2">{data.data.username}’s World 🌍</h1>
       <div><DashboardGrid content={data.data.content}/></div>
       </div>
     </>

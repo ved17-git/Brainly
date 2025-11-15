@@ -76,7 +76,7 @@ export function HeaderActions() {
       
     <form action={shareAction}>
      <Button>
-     {isPending ? "Loading..." : "Share Link"}
+         {isPending ? "Loading..." : "Share Link"}
      </Button>
     </form>
     </div>

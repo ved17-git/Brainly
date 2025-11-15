@@ -115,7 +115,7 @@ export default function DashboardGrid({
             <Button variant="destructive">
               {isLoading? "Loading..." : "Delete"}
             </Button>
-                <input
+             <input
                 id="id"
                 name="id"
                 hidden

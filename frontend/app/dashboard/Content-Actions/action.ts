@@ -62,7 +62,7 @@ export const shareLink=async()=>{
     const share=true;
     const token=await getToken()
 
-    const res=await fetch(`${BASE_URL}}/share`,{
+    const res=await fetch(`${BASE_URL}/share`,{
     method:"POST",
     headers:{
     "Content-Type":"application/json",
@@ -73,6 +73,8 @@ export const shareLink=async()=>{
 
     
     const data=await res.json()
+    console.log(data);
+    
     
     const sharedLink="http://localhost:3000/share/"+data.url
     console.log(sharedLink);
@@ -82,6 +84,4 @@ export const shareLink=async()=>{
     }
     
     revalidateTag('/dashboard')
-
-
 }

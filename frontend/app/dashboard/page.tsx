@@ -15,7 +15,20 @@ export default async function DashboardAllPage() {
     },
   })
 
+    const userRes=await fetch(`${BASE_URL}/currentUser`,{
+    method:"GET",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":`Bearer ${token}`
+    },
+  })
+
+
   const data=await res.json()
+  const userData=await userRes.json()
+  console.log(userData);
+  
+  
   
   return (
     <>
