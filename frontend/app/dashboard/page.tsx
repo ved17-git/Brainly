@@ -1,6 +1,8 @@
 import DashboardGrid from "@/components/dashboard-grid";
 import { cookies } from "next/headers";
 import { BASE_URL } from "../utils/config";
+import { Sidebar } from "lucide-react";
+import { AppSidebar } from "@/components/app-sidebar";
 
 export default async function DashboardAllPage() {
 
@@ -26,7 +28,6 @@ export default async function DashboardAllPage() {
 
   const data=await res.json()
   const userData=await userRes.json()
-  console.log(userData);
   
   
   
@@ -34,6 +35,7 @@ export default async function DashboardAllPage() {
     <>
      <div className="mt-6">
         <DashboardGrid content={data.content} />
+        <AppSidebar userData={userData} />
       </div>
     </>
   );

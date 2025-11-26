@@ -34,13 +34,26 @@ const nav = [
   { title: "Tags", href: "/dashboard/tags", icon: Tag },
 ]
 
+interface UserProps {
+  user: {
+    id: number;
+    username: string;
+    email: string;
+  }
+}
+
+interface AppSidebarProps extends React.ComponentProps<'div'> {
+  userData?: UserProps;
+}
 
 
-export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
+
+export function AppSidebar({ userData, ...props }: AppSidebarProps) {
   const pathname = usePathname()
 
    const [data,formAction, isLoading] = useActionState(logout, undefined)
 
+  console.log(userData);
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -94,11 +107,11 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
                   aria-label="Open profile menu"
                 >
                   <Avatar className="h-8 w-8 rounded-lg">
-                    <AvatarFallback className="rounded-lg">SB</AvatarFallback>
+                    <AvatarFallback className="rounded-lg">{userData?.user.username[0]}</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight group-data-[collapsible=icon]:hidden">
-                    <span className="truncate font-medium">Alex Johnson</span>
-                    <span className="truncate text-xs text-muted-foreground">alex@example.com</span>
+                    <span className="truncate font-medium">{userData?.user.username}</span>
+                    <span className="truncate text-xs text-muted-foreground">{userData?.user.email}</span>
                   </div>
                 </button>
               </DropdownMenuTrigger>
