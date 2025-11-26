@@ -16,6 +16,10 @@ app.use('/', userRouter)
 app.use('/', contentRouter)
 app.use('/', linkRouter)
 
+app.get('/',(req,res)=>{
+    res.send("testing /")
+})
+
 
 app.listen(port, ()=>{
     console.log(`listening on ${port}`);

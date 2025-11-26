@@ -16,6 +16,9 @@ app.use(express_1.default.json());
 app.use('/', userRoutes_1.userRouter);
 app.use('/', contentRoutes_1.contentRouter);
 app.use('/', linkRoutes_1.linkRouter);
+app.get('/', (req, res) => {
+    res.send("testing /");
+});
 app.listen(port, () => {
     console.log(`listening on ${port}`);
 });

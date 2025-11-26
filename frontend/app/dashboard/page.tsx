@@ -1,7 +1,6 @@
 import DashboardGrid from "@/components/dashboard-grid";
 import { cookies } from "next/headers";
 import { BASE_URL } from "../utils/config";
-import { Sidebar } from "lucide-react";
 import { AppSidebar } from "@/components/app-sidebar";
 
 export default async function DashboardAllPage() {
