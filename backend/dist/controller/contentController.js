@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.twitterContent = exports.youtubeContent = exports.deleteContent = exports.allContent = exports.createContent = void 0;
-const client_1 = require("@prisma/client");
-const db = new client_1.PrismaClient();
+const prisma_1 = require("../lib/prisma");
+// const db=new PrismaClient()
 const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, link, type } = req.body;
     //@ts-ignore
@@ -24,7 +24,7 @@ const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return;
     }
     try {
-        const content = yield db.content.create({
+        const content = yield prisma_1.db.content.create({
             data: {
                 title: title,
                 link: link,
@@ -55,7 +55,7 @@ const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.createContent = createContent;
 const allContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const content = yield db.content.findMany({
+        const content = yield prisma_1.db.content.findMany({
             where: {
                 //@ts-ignore
                 userId: req.userId
@@ -84,7 +84,7 @@ exports.allContent = allContent;
 const deleteContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     try {
-        const content = yield db.content.delete({
+        const content = yield prisma_1.db.content.delete({
             where: {
                 id: id,
                 //@ts-ignore
@@ -112,7 +112,7 @@ const deleteContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.deleteContent = deleteContent;
 const youtubeContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const content = yield db.content.findMany({
+        const content = yield prisma_1.db.content.findMany({
             where: {
                 type: "youtube",
                 //@ts-ignore
@@ -141,7 +141,7 @@ const youtubeContent = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.youtubeContent = youtubeContent;
 const twitterContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const content = yield db.content.findMany({
+        const content = yield prisma_1.db.content.findMany({
             where: {
                 type: "twitter",
                 //@ts-ignore

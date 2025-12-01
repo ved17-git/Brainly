@@ -1,8 +1,9 @@
 import { Request, Response } from "express"
 import { PrismaClient } from "@prisma/client"
 import { randomURL } from "../utils/generateURL"
+import { db } from "../lib/prisma"
 
-const db=new PrismaClient()
+// const db=new PrismaClient()
 
 export const share=async (req:Request,res:Response)=>{
 

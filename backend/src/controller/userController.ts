@@ -3,8 +3,9 @@ import { PrismaClient } from "@prisma/client"
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import z from "zod"
+import { db } from "../lib/prisma"
 
-const db= new PrismaClient()
+// const db= new PrismaClient()
 
 
 export const signUp=async(req:Request,res:Response)=>{

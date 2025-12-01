@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.logout = exports.currentUser = exports.signIn = exports.signUp = void 0;
-const client_1 = require("@prisma/client");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const db = new client_1.PrismaClient();
+const prisma_1 = require("../lib/prisma");
+// const db= new PrismaClient()
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = req.body;
     if (!username || !password || !email) {
@@ -26,7 +26,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
     try {
-        const existingUser = yield db.user.findUnique({
+        const existingUser = yield prisma_1.db.user.findUnique({
             where: {
                 email: email
             }
@@ -38,7 +38,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         const hash = yield bcrypt_1.default.hash(password, 10);
-        const user = yield db.user.create({
+        const user = yield prisma_1.db.user.create({
             data: {
                 username: username,
                 email: email,
@@ -68,7 +68,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
     try {
-        const user = yield db.user.findUnique({
+        const user = yield prisma_1.db.user.findUnique({
             where: {
                 email: email
             }
@@ -107,7 +107,7 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.signIn = signIn;
 const currentUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield db.user.findFirst({
+        const user = yield prisma_1.db.user.findFirst({
             where: {
                 //@ts-ignore
                 id: req.userId

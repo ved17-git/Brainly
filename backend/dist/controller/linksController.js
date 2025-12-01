@@ -10,13 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.shareLink = exports.share = void 0;
-const client_1 = require("@prisma/client");
 const generateURL_1 = require("../utils/generateURL");
-const db = new client_1.PrismaClient();
+const prisma_1 = require("../lib/prisma");
+// const db=new PrismaClient()
 const share = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { share } = req.body;
     try {
-        const existingLink = yield db.links.findFirst({
+        const existingLink = yield prisma_1.db.links.findFirst({
             where: {
                 //@ts-ignore
                 userId: req.userId,
@@ -30,7 +30,7 @@ const share = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         const url = (0, generateURL_1.randomURL)();
-        const newUrl = yield db.links.create({
+        const newUrl = yield prisma_1.db.links.create({
             data: {
                 url: url,
                 //@ts-ignore
@@ -56,7 +56,7 @@ exports.share = share;
 const shareLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const shareLink = req.params.shareLink;
-        const linkData = yield db.links.findFirst({
+        const linkData = yield prisma_1.db.links.findFirst({
             where: {
                 //@ts-ignore
                 url: shareLink
@@ -68,7 +68,7 @@ const shareLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
             return;
         }
-        const data = yield db.user.findFirst({
+        const data = yield prisma_1.db.user.findFirst({
             where: {
                 id: linkData === null || linkData === void 0 ? void 0 : linkData.userId
             },
