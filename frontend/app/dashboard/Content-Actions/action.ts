@@ -73,15 +73,18 @@ export const shareLink=async()=>{
 
     
     const data=await res.json()
-    console.log(data);
     
     
     const sharedLink="http://localhost:3000/share/"+data.url
     console.log(sharedLink);
     
-    if(!res.ok){
-        return data.msg
-    }
+    if (!res.ok) {
+        return { success: false, message: data.msg, link: null };
+      }
     
-    revalidateTag('/dashboard')
+      revalidateTag("/dashboard");
+    
+      return { success: true, link: sharedLink, timestamp: Date.now() }
+    
+    
 }

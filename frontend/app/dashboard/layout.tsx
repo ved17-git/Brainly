@@ -8,6 +8,9 @@ import { Separator } from "@/components/ui/separator"
 import { AppSidebar } from "@/components/app-sidebar"
 import { HeaderActions } from "@/components/header-actions"
 import { ThemeToggle } from "@/components/theme-toggle"
+import {toast} from "sonner"
+import { Toaster } from "@/components/ui/sonner"
+
 
 function TitleFromPath() {
   const pathname = usePathname()
@@ -44,6 +47,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <ThemeToggle />
             </div>
           </header>
+
+           <Toaster position="top-center" />
+
           {children}
         </SidebarInset>
       </SidebarProvider>

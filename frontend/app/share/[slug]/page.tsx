@@ -1,5 +1,4 @@
 import DashboardGrid from "@/components/dashboard-grid";
-import React from "react";
 import { BASE_URL } from "@/app/utils/config";
 
 type paramsType={

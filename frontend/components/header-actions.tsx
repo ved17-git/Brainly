@@ -16,6 +16,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { addContent } from "@/app/dashboard/Content-Actions/action"
 import { useActionState } from "react"
 import { shareLink } from "@/app/dashboard/Content-Actions/action"
+import { toast } from "sonner"
+import { useEffect } from "react"
 
 
 
@@ -24,6 +26,18 @@ export function HeaderActions() {
    
   const [data, formAction, isLoading]=useActionState(addContent,undefined)
   const [shareData, shareAction, isPending]=useActionState(shareLink,undefined)
+
+  useEffect(() => {
+    if (!shareData || !shareData.link) return;
+  
+    toast("Shareable Link Generated", {
+      description: shareData.link,
+      action: {
+        label: "Copy",
+        onClick: () => navigator.clipboard.writeText(shareData.link),
+      },
+    });
+  }, [shareData]);
 
   
 
@@ -75,10 +89,16 @@ export function HeaderActions() {
 
       
     <form action={shareAction}>
-     <Button>
+     {/* <Button>
          {isPending ? "Loading..." : "Share Link"}
-     </Button>
+     </Button> */}
+      <Button type="submit" disabled={isPending}>
+       {isPending ? "Loading..." : "Share Link"}
+    </Button>
+      
     </form>
-    </div>
+
+    
+  </div>
   )
 }

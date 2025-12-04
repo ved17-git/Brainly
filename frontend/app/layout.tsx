@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
+import { Toaster } from "@/components/ui/sonner";
 
 
 const geistSans = Geist({
@@ -41,9 +42,9 @@ export default function RootLayout({
           </ThemeProvider>
 
           <Script
-        src="https://platform.twitter.com/widgets.js"
+          src="https://platform.twitter.com/widgets.js"
           strategy="lazyOnload"
-         charSet="utf-8"
+          charSet="utf-8"
            />
       </body>
     </html>
