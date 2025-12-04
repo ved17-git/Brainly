@@ -48,11 +48,13 @@ const token=await getToken()
     const data=await res.json()
     
 
-    if(!res.ok){
-        return data.msg
-    }
+
+    if (!res.ok) {
+        return { success: false, msg: data.msg };
+      }
     
     revalidateTag('/dashboard')
+    return { success: true };
 }
 
 

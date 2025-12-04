@@ -1,11 +1,12 @@
 import DashboardGrid from "@/components/dashboard-grid";
 import { getToken } from "@/app/utils/getToken";
+import { BASE_URL } from "@/app/utils/config";
 
 export default async function DashboardYouTubePage() {
 
   const token=await getToken()
 
-  const res=await fetch("http://localhost:8000/youtubeContent",{
+  const res=await fetch( `${BASE_URL}/youtubeContent`,{
     method:"GET",
     headers:{
            "Content-Type":"application/json",

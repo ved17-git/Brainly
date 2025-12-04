@@ -31,9 +31,11 @@ export default function DashboardGrid({
 
   const [data,deleteAction,isLoading]=useActionState(deleteContent,undefined)
 
-  useEffect(()=>{
-
-  },[])
+  useEffect(() => {
+    if (data?.success) {
+      setDeleteId(null);   
+    }
+  }, [data]);
 
   function convertYouTubeUrl(url: string) {
   try {
@@ -101,7 +103,7 @@ export default function DashboardGrid({
 
 
       {/* Delete Confirmation Dialog */}
-      <Dialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>
+      <Dialog  onOpenChange={() => setDeleteId(null)}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Are you sure?</DialogTitle>
