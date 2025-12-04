@@ -7,14 +7,14 @@ type paramsType={
     }
 }
 
-async function ShareLink({params}:paramsType) {
- 
-    const id=params.slug
+async function ShareLink({ params }: paramsType) {
+  const resolvedParams = await params;
+  const id = resolvedParams.slug;
     
     const res=await fetch(`${BASE_URL}/share/${id}`,{
         method:"GET",
         headers:{
-            "Content-Type":"application/json"
+            "Content-Type":"application/json" 
         }
     })
 
