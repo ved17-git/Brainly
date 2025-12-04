@@ -76,8 +76,9 @@ export const shareLink=async()=>{
     
     const data=await res.json()
     
-    
-    const sharedLink="http://localhost:3000/share/"+data.url
+    //http://localhost:3000/share/20u25z10k29D37L15p32G17r13n34I
+    //https://brainly-4mpb.vercel.app/
+    const sharedLink="brainly-4mpb.vercel.app/share/"+data.url
     console.log(sharedLink);
     
     if (!res.ok) {
