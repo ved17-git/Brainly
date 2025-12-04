@@ -24,8 +24,10 @@ interface contentType {
 
 export default function DashboardGrid({
   content,
+  section
 }: {
   content: contentType[]
+  section?: string
 }) {
   const [deleteId, setDeleteId] = useState<number | null>(null)
 
