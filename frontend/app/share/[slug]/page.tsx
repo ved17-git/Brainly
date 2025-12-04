@@ -1,13 +1,12 @@
 import DashboardGrid from "@/components/dashboard-grid";
 import { BASE_URL } from "@/app/utils/config";
 
-type paramsType={
-    params:{
-    slug:string
-    }
-}
-
-async function ShareLink({ params }: paramsType) {
+type ParamsType = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
+async function ShareLink({ params }: ParamsType) {
   const resolvedParams = await params;
   const id = resolvedParams.slug;
     
