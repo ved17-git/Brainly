@@ -107,8 +107,8 @@
   },
   "exclude": [
     "./prisma.config.ts",
-    "prisma/**",
-    "dist",
-    "node_modules"
+    // "prisma/**",
+    // "dist",
+    // "node_modules"
   ]
 }
