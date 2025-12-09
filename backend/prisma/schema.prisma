@@ -9,24 +9,23 @@ datasource db {
 
 
 model User{
-id Int @default(autoincrement()) @id
-username String
-email String @unique
-password String @unique
+  id Int @default(autoincrement()) @id
+  username String
+  email String @unique
+  password String @unique
 
-content Content[]
-links Links[]
-
+  content Content[]
+  links Links[]
 }
 
 model Content{
-id Int @default(autoincrement()) @id
-link String
-title String
-type String
+    id Int @default(autoincrement()) @id
+    link String
+    title String
+    type String
 
-userId Int
-user User @relation(fields: [userId], references: [id])
+    userId Int
+    user User @relation(fields: [userId], references: [id])
 
 }
 
@@ -34,10 +33,10 @@ user User @relation(fields: [userId], references: [id])
 
 model Links{
 
-id Int @default(autoincrement()) @id
-url String
+    id Int @default(autoincrement()) @id
+    url String
 
-userId Int
-user User @relation(fields: [userId],references: [id])
+    userId Int
+    user User @relation(fields: [userId],references: [id])
 
 }
