@@ -2,7 +2,6 @@
     import { PrismaClient } from "@prisma/client"
     import { db } from "../lib/prisma"
 
-    // const db=new PrismaClient()
     export const createContent=async(req:Request,res:Response)=>{
 
     const {title, link, type} =req.body
