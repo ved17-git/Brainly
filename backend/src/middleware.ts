@@ -31,8 +31,4 @@ if (typeof decoded === 'object' && decoded !== null && 'id' in decoded) {
             msg:"middleware error"
         })
     }
-
-
-
-    
 }

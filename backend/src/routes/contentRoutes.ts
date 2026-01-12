@@ -9,8 +9,6 @@ export const contentRouter=express.Router()
 contentRouter.post('/createContent', middleware, createContent)
 contentRouter.get('/allContent',middleware, allContent)
 contentRouter.delete('/deleteContent', middleware, deleteContent)
-
 contentRouter.get('/youtubeContent',middleware, youtubeContent)
-
 contentRouter.get('/twitterContent',middleware, twitterContent)
 

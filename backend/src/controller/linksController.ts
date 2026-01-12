@@ -52,7 +52,6 @@ export const share=async (req:Request,res:Response)=>{
         })
         
     }
-   
 
 }
 
