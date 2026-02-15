@@ -105,31 +105,43 @@ export default function DashboardGrid({
 
 
       {/* Delete Confirmation Dialog */}
-      <Dialog  onOpenChange={() => setDeleteId(null)}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Are you sure?</DialogTitle>
-          </DialogHeader>
-          <p>This action cannot be undone. The content will be permanently removed.</p>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setDeleteId(null)}>
-              Cancel
-            </Button>
-            <form action={deleteAction}>
-            <Button variant="destructive">
-              {isLoading? "Loading..." : "Delete"}
-            </Button>
-             <input
-                id="id"
-                name="id"
-                hidden
-                required
-                value={deleteId !== null ? String(deleteId) : ""}
-              />
-            </form>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+<Dialog
+  open={deleteId !== null}
+  onOpenChange={(open) => {
+    if (!open) setDeleteId(null)
+  }}
+>
+  <DialogContent className="sm:max-w-md">
+    <DialogHeader>
+      <DialogTitle>Are you sure?</DialogTitle>
+    </DialogHeader>
+
+    <p>
+      This action cannot be undone. The content will be permanently removed.
+    </p>
+
+    <DialogFooter>
+      <Button variant="outline" onClick={() => setDeleteId(null)}>
+        Cancel
+      </Button>
+
+      <form action={deleteAction}>
+        <Button variant="destructive">
+          {isLoading ? "Loading..." : "Delete"}
+        </Button>
+
+        <input
+          id="id"
+          name="id"
+          hidden
+          required
+          defaultValue={deleteId !== null ? String(deleteId) : ""}
+        />
+      </form>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+
 
 
     </div>

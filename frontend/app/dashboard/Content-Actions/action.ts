@@ -46,6 +46,7 @@ const token=await getToken()
         body:JSON.stringify({id})
     })
     const data=await res.json()
+    console.log(data);
     
 
 
@@ -78,7 +79,8 @@ export const shareLink=async()=>{
     
     //http://localhost:3000/share/20u25z10k29D37L15p32G17r13n34I  -> localhost link
     //https://brainly-4mpb.vercel.app/
-    const sharedLink="brainly-4mpb.vercel.app/share/"+data.url
+    //http://localhost:3000/share
+    const sharedLink="http://localhost:3000/share"+data.url
     console.log(sharedLink);
     
     if (!res.ok) {
@@ -88,6 +90,5 @@ export const shareLink=async()=>{
       revalidateTag("/dashboard");
     
       return { success: true, link: sharedLink, timestamp: Date.now() }
-    
-    
+
 }
