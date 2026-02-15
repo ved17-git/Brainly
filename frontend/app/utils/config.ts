@@ -1,3 +1,4 @@
-export const BASE_URL="http://localhost:8000" //production (hosted via vercel cli)
+export const BASE_URL="https://brainly-backend-bay.vercel.app" //production (hosted via vercel cli)
 //http://localhost:8000
 //https://brainly-backend-bay.vercel.app
+//https://brainly-backend-bay.vercel.app/
