@@ -16,7 +16,6 @@ exports.logout = exports.currentUser = exports.signIn = exports.signUp = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const prisma_1 = require("../lib/prisma");
-// const db= new PrismaClient()
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = req.body;
     if (!username || !password || !email) {

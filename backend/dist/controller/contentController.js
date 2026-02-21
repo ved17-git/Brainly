@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.twitterContent = exports.youtubeContent = exports.deleteContent = exports.allContent = exports.createContent = void 0;
 const prisma_1 = require("../lib/prisma");
-// const db=new PrismaClient()
 const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, link, type } = req.body;
     //@ts-ignore

@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.shareLink = exports.share = void 0;
 const generateURL_1 = require("../utils/generateURL");
 const prisma_1 = require("../lib/prisma");
-// const db=new PrismaClient()
 const share = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { share } = req.body;
     try {
