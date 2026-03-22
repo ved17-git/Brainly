@@ -12,7 +12,7 @@
 
     if(!title||!link || !type){
     res.status(400).json({
-            msg:"enter all details"
+            msg:"Enter all details"
         })
     return
 
